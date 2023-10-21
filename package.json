@@ -1,6 +1,8 @@
 {
   "name": "blockafeller",
   "module": "index.ts",
+  "license": "MIT",
+  "private": true,
   "scripts": {
     "lint": "biome ci ."
   },

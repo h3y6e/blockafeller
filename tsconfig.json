@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "lib": ["ESNext"],
     "module": "commonjs",
-    "target": "es5",
+    "target": "esnext",
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,
     "noEmit": true,
