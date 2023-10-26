@@ -1,5 +1,3 @@
 {
-  "recommendations": [
-    "mtsmfm.vscode-stl-viewer"
-  ]
+  "recommendations": ["mtsmfm.vscode-stl-viewer"]
 }
