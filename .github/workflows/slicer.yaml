@@ -1,0 +1,30 @@
+name: STL to G-code
+
+on:
+  push:
+    paths:
+      - "**/*.stl"
+      - ".github/workflows/slicer.yml"
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install PrusaSlicer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y prusa-slicer
+
+      - name: Detect STL changes and Convert to G-code
+        run: |
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
+          git diff --name-only ${{ github.base_ref }} HEAD -- '*.stl' | while read file; do
+            if [[ -f $file ]]; then
+              echo "Converting $file to G-code"
+              prusa-slicer --slice $file --output ${file%.stl}.gcode
+            fi
+          done
