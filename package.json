@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "bun index.ts",
     "lint": "biome ci ."
   },
   "devDependencies": {
