@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "**/*.stl"
-      - ".github/workflows/slicer.yml"
+      - ".github/workflows/slicer.yaml"
 
 jobs:
   convert:
