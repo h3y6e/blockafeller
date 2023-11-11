@@ -1,4 +1,4 @@
-import { booleans, extrusions, geometries, hulls, primitives, transforms } from "@jscad/modeling";
+import { booleans, extrusions, geometries, primitives, transforms } from "@jscad/modeling";
 import type { Vec2 } from "@jscad/modeling/src/maths/vec2";
 
 const leftLength = 140;
