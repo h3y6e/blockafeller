@@ -2,10 +2,10 @@ import { booleans, primitives } from "@jscad/modeling";
 
 export const main = () => {
   const length = 50;
-  const width = 15;
+  const width = 16;
   const height = 5;
-  const radius = 5.5;
-  const depth = 1;
+  const radius = 6;
+  const depth = 1.5;
 
   const base = primitives.roundedCuboid({
     size: [length, width, height],
