@@ -9,8 +9,6 @@ async function runCommand(command: string) {
     const error = e as ExecException & { stderr?: string };
     if (error.stderr) {
       console.error(error.stderr);
-    } else {
-      console.error(error.message);
     }
   }
 }
@@ -32,7 +30,7 @@ function displaySpinner(interval: number) {
 }
 
 watch("**/*.ts", { ignored: "index.ts" }).on("change", async (path) => {
-  console.log(`\x1b[1m${path}\x1b[0m`);
+  console.info(`\x1b[1m${path}\x1b[0m`);
   // Bun currently supports only esm @see https://bun.sh/docs/bundler#format
   // Bun.build({
   // 	entrypoints: [path],
@@ -45,5 +43,5 @@ watch("**/*.ts", { ignored: "index.ts" }).on("change", async (path) => {
   await runCommand(`bunx jscad ${js}`);
   clearInterval(handle);
   resetCursor();
-  console.log("Building...\nDone!");
+  console.info("Building...\nDone!");
 });

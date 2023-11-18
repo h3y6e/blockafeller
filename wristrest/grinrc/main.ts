@@ -1,14 +1,21 @@
-import { booleans, extrusions, geometries, primitives, transforms } from "@jscad/modeling";
+import {
+  booleans,
+  extrusions,
+  geometries,
+  primitives,
+  transforms,
+} from "@jscad/modeling";
 import type { Vec2 } from "@jscad/modeling/src/maths/vec2";
 
-const leftLength = 140;
-const rightLength = 160;
-const length = leftLength + rightLength;
-const lengthCenter = (leftLength - rightLength) / 2;
-const width = 70;
-const height = 8;
-
 export const main = () => {
+  const leftLength = 140;
+  const rightLength = 160;
+  const width = 70;
+  const height = 8;
+
+  const length = leftLength + rightLength;
+  const lengthCenter = (leftLength - rightLength) / 2;
+
   // 基本のリストレストの3D形状
   const base = primitives.cuboid({
     center: [lengthCenter, -width / 2, height / 2],
@@ -39,7 +46,10 @@ export const main = () => {
   const bulge = booleans.intersect(cuboid, curve);
 
   // リストレストの3D形状
-  const wristrest = booleans.union(booleans.subtract(base, curve), transforms.translate([0, -width, 0], bulge));
+  const wristrest = booleans.union(
+    booleans.subtract(base, curve),
+    transforms.translate([0, -width, 0], bulge),
+  );
 
   // オブジェクトを分割するための直方体を作成
   const cutter = primitives.cuboid({
