@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install PrusaSlicer
         run: |
@@ -28,3 +28,9 @@ jobs:
               prusa-slicer --slice $file --output ${file%.stl}.gcode
             fi
           done
+
+      - name: Upload G-code Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: gcode
+          path: *.gcode
