@@ -11,8 +11,8 @@ import expansions from "@jscad/modeling/src/operations/expansions";
 export const main = () => {
   const leftLength = 135;
   const rightLength = 155;
-  const width = 80;
-  const height = 5;
+  const width = 85;
+  const height = 3;
   const delta = 2;
 
   const length = leftLength + rightLength;
