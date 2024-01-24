@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.4.0",
-    "@swc/cli": "^0.1.63",
+    "@swc/cli": "^0.3.0",
     "@swc/core": "^1.3.99",
     "bun-types": "^1.0.14",
     "chokidar": "^3.5.3",
