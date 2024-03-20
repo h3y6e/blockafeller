@@ -1,4 +1,4 @@
-import { ExecException, exec } from "node:child_process";
+import { type ExecException, exec } from "node:child_process";
 import { promisify } from "node:util";
 import { watch } from "chokidar";
 
