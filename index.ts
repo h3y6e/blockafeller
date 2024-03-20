@@ -1,5 +1,5 @@
 import { ExecException, exec } from "node:child_process";
-import { promisify } from "util";
+import { promisify } from "node:util";
 import { watch } from "chokidar";
 
 async function runCommand(command: string) {
