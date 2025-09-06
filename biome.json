@@ -1,10 +1,14 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "files": {
-    "ignore": ["**/*.js"]
+    "includes": ["**", "!**/*.js"]
   },
   "formatter": {
     "enabled": true,
