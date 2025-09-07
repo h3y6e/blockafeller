@@ -1,47 +1,35 @@
-import { type ExecException, exec } from "node:child_process";
-import { promisify } from "node:util";
-import { watch } from "chokidar";
+import { watch } from "node:fs";
+import path from "node:path";
+import { $ } from "bun";
 
-async function runCommand(command: string) {
-  try {
-    await promisify(exec)(command);
-  } catch (e) {
-    const error = e as ExecException & { stderr?: string };
-    if (error.stderr) {
-      console.error(error.stderr);
+const watcher = watch(
+  process.cwd(),
+  { recursive: true },
+  async (_, filename) => {
+    if (
+      !filename ||
+      !filename.endsWith(".ts") ||
+      filename.includes("node_modules") ||
+      filename === "index.ts"
+    ) {
+      return;
     }
-  }
-}
 
-function resetCursor() {
-  process.stdout.clearLine(0);
-  process.stdout.cursorTo(0);
-}
+    try {
+      const filePath = path.resolve(filename);
+      const { outputs } = await Bun.build({
+        entrypoints: [filePath],
+        outdir: path.dirname(filePath),
+        format: "cjs",
+      });
+      await $`bunx jscad ${outputs[0].path}`;
+    } finally {
+      process.stdout.write(`\rBuilding ${filename}... Done!     \n`);
+    }
+  },
+);
 
-function displaySpinner(interval: number) {
-  const spinner = ["|", "/", "-", "\\"];
-  let current = 0;
-  const handle = setInterval(() => {
-    resetCursor();
-    process.stdout.write(`${spinner[current]} Building...`);
-    current = (current + 1) % spinner.length;
-  }, interval);
-  return handle;
-}
-
-watch("**/*.ts", { ignored: "index.ts" }).on("change", async (path) => {
-  console.info(`\x1b[1m${path}\x1b[0m`);
-  // Bun currently supports only esm @see https://bun.sh/docs/bundler#format
-  // Bun.build({
-  // 	entrypoints: [path],
-  //   outdir: path.slice(0, path.lastIndexOf("/")),
-  //   format: "cjs",
-  // });
-  const js = `${path.slice(0, path.lastIndexOf("."))}.js`;
-  const handle = displaySpinner(100);
-  await runCommand(`bunx swc ${path} -o ${js}`);
-  await runCommand(`bunx jscad ${js}`);
-  clearInterval(handle);
-  resetCursor();
-  console.info("Building...\nDone!");
+process.on("SIGINT", () => {
+  watcher.close();
+  process.exit(0);
 });
