@@ -21,6 +21,7 @@ const watcher = watch(
         entrypoints: [filePath],
         outdir: path.dirname(filePath),
         format: "cjs",
+        packages: "external",
       });
       await $`bunx jscad ${outputs[0].path}`;
     } finally {
